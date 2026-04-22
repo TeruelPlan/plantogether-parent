@@ -25,10 +25,6 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Internal library versions — update here to upgrade across all services -->
-        <plantogether-common.version>1.8.0</plantogether-common.version>
-        <plantogether-proto.version>1.1.0</plantogether-proto.version>
-
         <!-- Overrides Spring Boot's default Lombok version -->
         <lombok.version>1.18.38</lombok.version>
 
@@ -49,27 +45,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Internal: common library (main + test-jar) -->
-            <dependency>
-                <groupId>com.plantogether</groupId>
-                <artifactId>plantogether-common</artifactId>
-                <version>${plantogether-common.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.plantogether</groupId>
-                <artifactId>plantogether-common</artifactId>
-                <version>${plantogether-common.version}</version>
-                <classifier>tests</classifier>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- Internal: proto/gRPC stubs -->
-            <dependency>
-                <groupId>com.plantogether</groupId>
-                <artifactId>plantogether-proto</artifactId>
-                <version>${plantogether-proto.version}</version>
-            </dependency>
-
             <!-- gRPC runtime -->
             <dependency>
                 <groupId>io.grpc</groupId>
@@ -140,34 +115,6 @@
             <url>https://maven.pkg.github.com/TeruelPlan/plantogether-parent</url>
         </repository>
     </distributionManagement>
-
-    <!-- GitHub Packages repos for internal libraries — inherited by all modules -->
-    <repositories>
-        <repository>
-            <id>github-parent</id>
-            <name>GitHub Packages — parent</name>
-            <url>https://maven.pkg.github.com/TeruelPlan/plantogether-parent</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>github-proto</id>
-            <name>GitHub Packages — proto</name>
-            <url>https://maven.pkg.github.com/TeruelPlan/plantogether-proto</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>github-common</id>
-            <name>GitHub Packages — common</name>
-            <url>https://maven.pkg.github.com/TeruelPlan/plantogether-common</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <build>
         <pluginManagement>
