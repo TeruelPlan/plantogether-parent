@@ -19,7 +19,16 @@ jobs:
         with:
           java-version: '21'
           distribution: temurin
-          cache: maven
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/com/plantogether
+          key: m2-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            m2-${{ runner.os }}-
 
       - name: Validate parent POM
         run: mvn --batch-mode -N validate
