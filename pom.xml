@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version>
+        <version>3.5.9</version>
         <relativePath/>
     </parent>
 
@@ -33,11 +33,11 @@
         <lombok.version>1.18.38</lombok.version>
 
         <!-- Third-party versions not managed by Spring Boot BOM -->
-        <grpc.version>1.63.0</grpc.version>
-        <protobuf.version>3.25.3</protobuf.version>
-        <protoc.version>3.25.3</protoc.version>
-        <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
-        <aws-sdk.version>2.25.60</aws-sdk.version>
+        <grpc.version>1.73.0</grpc.version>
+        <protobuf.version>4.29.3</protobuf.version>
+        <protoc.version>4.29.3</protoc.version>
+        <tomcat-annotations-api.version>6.0.53</tomcat-annotations-api.version>
+        <aws-sdk.version>2.42.37</aws-sdk.version>
         <firebase-admin.version>9.3.0</firebase-admin.version>
 
         <!-- E2E test library versions -->
@@ -99,9 +99,10 @@
                 <version>${protobuf.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>annotations-api</artifactId>
+                <version>${tomcat-annotations-api.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- AWS SDK v2 — MinIO-compatible S3 client (file-service) -->
