@@ -19,6 +19,13 @@
     <name>plantogether-parent</name>
     <description>Parent POM — centralizes dependency versions and build configuration for all PlanTogether modules</description>
 
+    <scm>
+        <connection>scm:git:https://github.com/TeruelPlan/plantogether-parent.git</connection>
+        <developerConnection>scm:git:https://github.com/TeruelPlan/plantogether-parent.git</developerConnection>
+        <url>https://github.com/TeruelPlan/plantogether-parent</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
@@ -26,23 +33,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Overrides Spring Boot's default Lombok version -->
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
 
         <!-- Third-party versions not managed by Spring Boot BOM -->
-        <grpc.version>1.73.0</grpc.version>
-        <protobuf.version>4.29.3</protobuf.version>
+        <grpc.version>1.80.0</grpc.version>
+        <protobuf.version>4.34.1</protobuf.version>
         <protoc.version>4.29.3</protoc.version>
         <tomcat-annotations-api.version>6.0.53</tomcat-annotations-api.version>
-        <aws-sdk.version>2.42.37</aws-sdk.version>
-        <firebase-admin.version>9.3.0</firebase-admin.version>
+        <aws-sdk.version>2.42.41</aws-sdk.version>
+        <firebase-admin.version>9.8.0</firebase-admin.version>
 
         <!-- E2E test library versions -->
-        <rest-assured.version>5.4.0</rest-assured.version>
-        <assertj.version>3.25.3</assertj.version>
+        <rest-assured.version>6.0.0</rest-assured.version>
+        <assertj.version>3.27.7</assertj.version>
         <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
-        <spotless.version>2.44.5</spotless.version>
+        <spotless.version>3.4.0</spotless.version>
         <google-java-format.version>1.25.2</google-java-format.version>
+        <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -145,6 +153,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <configuration>
+                    <!-- Exclude unstable releases (alpha, beta, RC, M builds) -->
+                    <rulesUri>file://${maven.multiModuleProjectDirectory}/.mvn/versions-rules.xml</rulesUri>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -173,6 +190,18 @@
                                 <version>${lombok.version}</version>
                             </path>
                         </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <configuration>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <scmCommentPrefix>[ci skip] </scmCommentPrefix>
+                        <pushChanges>true</pushChanges>
+                        <localCheckout>false</localCheckout>
+                        <releaseProfiles>release</releaseProfiles>
                     </configuration>
                 </plugin>
             </plugins>
